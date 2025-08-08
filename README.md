@@ -1,5 +1,5 @@
-# ACNH API 2.0
+# Nook Radio
 
 ## Introduction
 
-This project is a reboot of the original acnhapi by Alexi Lours ([@alexislours on GitHub](https://github.com/alexislours)).
+An upgraded and new version of both my K.K. Radio and ACNH BGM IRL projects!
