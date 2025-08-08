@@ -2,9 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
+type LocationCoordinates = {
+  latitude: number;
+  longitude: number;
+};
+
 function Home() {
   const [time, setTime] = useState(new Date());
-  const [coordinates, setCoordinates] = useState(null);
+  const [coordinates, setCoordinates] = useState<LocationCoordinates | null>(null);
   const [temperature, setTemperature] = useState(71);
   const [weather, setWeather] = useState("Sunny");
   const [isPlaying, setIsPlaying] = useState(false);
@@ -42,7 +47,7 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    async function fetchWeather(latitude, longitude) {
+    async function fetchWeather(latitude: LocationCoordinates["latitude"], longitude: LocationCoordinates["longitude"]) {
       try {
         const response = await fetch(
           `https://api.weatherapi.com/v1/current.json?key=b93e335c0d074c2ca9874431250506&q=${latitude},${longitude}&aqi=no`
@@ -58,11 +63,10 @@ function Home() {
       }
     }
 
-    if (coordinates && time) {
-      window.alert(`${coordinates.latitude}, ${coordinates.longitude}`);
+    if (coordinates) {
       fetchWeather(coordinates.latitude, coordinates.longitude);
     }
-  }, [coordinates, time.getHours()]);
+  }, [coordinates]);
 
   const handleClickPlayPause = () => {
     setIsPlaying(!isPlaying);
