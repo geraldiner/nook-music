@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    color: white;
+  }
+
+  h1 {
+    @apply text-5xl font-bold my-5;
+  }
+
+  h2 {
+    @apply text-4xl font-bold my-4;
+  }
+
+  h3 {
+    @apply text-3xl font-bold my-3;
+  }
+
+  h4 {
+    @apply text-2xl font-bold my-2;
+  }
+
+  h5 {
+    @apply text-xl font-bold my-1;
+  }
+
+  h6 {
+    @apply text-lg font-bold my-1;
+  }
+
+  p {
+    @apply mb-2;
+  }
+
+  a {
+    @apply text-blue-500 underline underline-offset-2;
+  }
+
+  a:hover {
+    @apply text-blue-500 underline underline-offset-4;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+
+  hr {
+    @apply my-4;
+  }
+
+  input[type="text"] {
+    @apply cursor-pointer border border-purple-400 bg-white rounded-sm p-2;
+  }
+
+  pre {
+    @apply w-full bg-yellow-100 border-1 border-yellow-500 rounded-md p-6;
+  }
+
+  pre {
+    white-space: pre-wrap; /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: -pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+  }
+
+  code {
+    @apply inline-block border border-gray-300 bg-white px-1 py-0.5 rounded-sm;
+  }
+}
+
+@layer components {
+  .custom-background {
+    background-image: url("/ac-background.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  .custom-background::before {
+    content: "";
+    z-index: 0;
+    pointer-events: none;
+    background-color: #00000088;
+    transition: background-color 0.3s;
+    position: fixed;
+    inset: 0;
+  }
+
+  .custom-background * {
+    z-index: 1;
+  }
+
+  header nav h3 {
+    @apply m-0;
+  }
+
+  header nav h3 a {
+    @apply no-underline;
+  }
+
+  header nav a {
+    @apply text-gray-950 underline underline-offset-2;
+  }
+
+  header nav a.active {
+    @apply text-amber-800 font-semibold;
+  }
+
+  header nav a:hover {
+    @apply text-blue-500 underline-offset-4;
+  }
+
+  footer a,
+  footer nav a,
+  footer nav button {
+    @apply text-gray-950 underline underline-offset-2;
+  }
+
+  footer a:hover,
+  footer nav a:hover,
+  footer nav button:hover {
+    @apply text-blue-500 underline underline-offset-4;
+  }
+}
