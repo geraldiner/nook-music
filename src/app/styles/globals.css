@@ -92,6 +92,11 @@
     z-index: 1;
   }
 
+  .card {
+    background-color: #00000088;
+    @apply px-6 py-4 flex gap-6 rounded-md;
+  }
+
   header nav h3 {
     @apply m-0;
   }
