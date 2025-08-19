@@ -32,6 +32,7 @@ export default antfu(
       "style/brace-style": ["off"],
       "style/comma-dangle": ["off"],
       "style/operator-linebreak": ["off"],
+      "unused-imports/no-unused-vars": ["warn"],
       "@next/next/no-img-element": ["off"],
     },
   }

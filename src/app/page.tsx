@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import AudioPlayer from "@/components/AudioPlayer";
+import BGM from "@/components/BGM/BGM";
+import Settings from "@/components/Settings/Settings";
+
+type View = "bgm" | "settings" | "playlist";
+type PlayerMode = "bgm" | "playlist";
 
 type LocationCoordinates = {
   latitude: number;
@@ -8,13 +14,15 @@ type LocationCoordinates = {
 };
 
 function Home() {
-  const [time, setTime] = useState(new Date());
-  const [coordinates, setCoordinates] = useState<LocationCoordinates | null>(null);
+  const [playerMode, setPlayerMode] = useState<PlayerMode>("bgm");
+  const [view, setView] = useState<View>("bgm");
+  const [time, setTime] = useState(() => new Date());
+  const [coordinates, setCoordinates] = useState<LocationCoordinates | null>(
+    null
+  );
   const [temperature, setTemperature] = useState(71);
   const [weather, setWeather] = useState("Sunny");
-  const [isPlaying, setIsPlaying] = useState(false);
   const [error, setError] = useState("");
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const timeInterval = setInterval(() => {
@@ -47,7 +55,10 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    async function fetchWeather(latitude: LocationCoordinates["latitude"], longitude: LocationCoordinates["longitude"]) {
+    async function fetchWeather(
+      latitude: LocationCoordinates["latitude"],
+      longitude: LocationCoordinates["longitude"]
+    ) {
       try {
         const response = await fetch(
           `https://api.weatherapi.com/v1/current.json?key=b93e335c0d074c2ca9874431250506&q=${latitude},${longitude}&aqi=no`
@@ -56,7 +67,11 @@ function Home() {
         setTemperature(Math.round(json.current.temp_f));
 
         const currentCondition = json.current.condition.text.toLowerCase();
-        const currentWeather = currentCondition.includes("snow") ? "Snowy" : currentCondition.includes("rain") ? "Rainy" : "Sunny";
+        const currentWeather = currentCondition.includes("snow")
+          ? "Snowy"
+          : currentCondition.includes("rain")
+            ? "Rainy"
+            : "Sunny";
         setWeather(currentWeather);
       } catch (error) {
         console.error(error);
@@ -68,34 +83,24 @@ function Home() {
     }
   }, [coordinates]);
 
-  const handleClickPlayPause = () => {
-    setIsPlaying(!isPlaying);
-    if (!isPlaying) {
-      audioRef.current?.play();
-    } else {
-      audioRef.current?.pause();
-    }
-  };
-
   return (
     <main className="custom-background min-h-screen max-w-full">
       <div>
         <div className="min-h-screen w-full flex flex-col items-center justify-between text-white">
-          <div className="my-5 border-2 border-white px-2 py-1 rounded-md">Nook Radio</div>
-          {error && <div>{error}</div>}
-          <div className="text-9xl flex flex-col md:flex-row justify-center items-center gap-5 text-shadow-lg text-shadow-gray-700">
-            <div>
-              {time.toLocaleTimeString()}
-            </div>
-            <div className="hidden md:block">&middot;</div>
-            <div>
-              {temperature}
-              &deg;
-            </div>
+          <div className="my-5 border-2 border-white px-2 py-1 rounded-md">
+            Nook Radio
           </div>
+          {error && <div>{error}</div>}
+          {view === "bgm" && <BGM time={time} temperature={temperature} />}
+          {view === "settings" && <Settings />}
           <div className="my-12">
-            {weather && time && <audio ref={audioRef} src={`https://acnh-api.netlify.app/api-v2/blobs/audio/BGM_24Hour_${time.getHours()}_${weather}.mp3`} autoPlay loop></audio>}
-            <button type="button" onClick={handleClickPlayPause}>{isPlaying ? "Pause" : "Play"}</button>
+            <AudioPlayer
+              src={`https://acnh-api.netlify.app/api-v2/blobs/audio/BGM_24Hour_${time.getHours()}_${weather}.mp3`}
+              loop={view === "bgm"}
+              playerMode={playerMode}
+              view={view}
+              setView={setView}
+            />
           </div>
         </div>
       </div>
@@ -104,3 +109,4 @@ function Home() {
 }
 
 export default Home;
+export type { PlayerMode, View };
