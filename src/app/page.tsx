@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import AudioPlayer from "@/components/AudioPlayer";
 import BGM from "@/components/BGM/BGM";
 import Settings from "@/components/Settings/Settings";
+import { addHourZeroPadding } from "@/utils/time_utils";
 
 type View = "bgm" | "settings" | "playlist";
 type PlayerMode = "bgm" | "playlist";
@@ -95,7 +96,7 @@ function Home() {
           {view === "settings" && <Settings />}
           <div className="my-12">
             <AudioPlayer
-              src={`https://acnh-api.netlify.app/api-v2/blobs/audio/BGM_24Hour_${time.getHours()}_${weather}.mp3`}
+              src={`https://acnh-api.netlify.app/api-v2/blobs/audio/BGM_24Hour_${addHourZeroPadding(time.getHours())}_${weather}.mp3`}
               loop={view === "bgm"}
               playerMode={playerMode}
               view={view}
