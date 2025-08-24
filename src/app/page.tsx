@@ -96,7 +96,7 @@ function Home() {
           {view === "settings" && <Settings />}
           <div className="my-12">
             <AudioPlayer
-              src={`https://acnh-api.netlify.app/api-v2/blobs/audio/BGM_24Hour_${addHourZeroPadding(time.getHours())}_${weather}.mp3`}
+              src={`https://ac-api.netlify.app/api-v2/blobs/audio/BGM_24Hour_${addHourZeroPadding(time.getHours())}_${weather}.mp3`}
               loop={view === "bgm"}
               playerMode={playerMode}
               view={view}
