@@ -89,7 +89,7 @@ function Home() {
       <div>
         <div className="min-h-screen w-full flex flex-col items-center justify-between text-white">
           <div className="my-5 border-2 border-white px-2 py-1 rounded-md">
-            Nook Radio
+            Nook Music
           </div>
           {error && <div>{error}</div>}
           {view === "bgm" && <BGM time={time} temperature={temperature} />}

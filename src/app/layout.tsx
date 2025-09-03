@@ -1,8 +1,8 @@
 import "./styles/globals.css";
 
 export const metadata = {
-  title: "Nook Radio by Geraldine Ragsac",
-  description: "Listen to your favorite tunes from the Animal Crossing series.",
+  title: "Nook Music by Geraldine Ragsac",
+  description: "Listen to your favorite tunes from the Animal Crossing video game series.",
 };
 
 export default function RootLayout({
